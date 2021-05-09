@@ -45,7 +45,8 @@ def main():
                     entries[process] = time
 
             print(f'total time: {total_time}')
-            for process in sorted(entries, key=lambda k: k[1])[:args.n]:
+            sorted_keys = sorted(entries, key=lambda k: entries[k], reverse=True)
+            for process in sorted_keys[:args.n]:
                 time = round(float(entries[process]), 3)
                 percentage = round(time * 100 / total_time, 3)
                 print(f'{process:40} {time:4.3f} ({percentage:.3f} %)')
@@ -55,7 +56,7 @@ def main():
 
 
 def parse_line(line):
-    match = re.search(r'(?P<time>\d+\.\d{6}) (?P<waitflag>[ W]) (?P<process>[\w. ]*\.\d+)', line)
+    match = re.search(r'(?P<time> \d+\.\d{6}) (?P<waitflag>[ W]) (?P<process>[\w. ]*\.\d+)', line)
     if not match:
         raise ParseError(f'could not parse line: "{line.strip()}"')
 
