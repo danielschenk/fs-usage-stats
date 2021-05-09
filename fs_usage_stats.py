@@ -48,8 +48,8 @@ def main():
             sorted_keys = sorted(entries, key=lambda k: entries[k], reverse=True)
             for process in sorted_keys[:args.n]:
                 time = round(float(entries[process]), 3)
-                percentage = round(time * 100 / total_time, 3)
-                print(f'{process:40} {time:4.3f} ({percentage:.3f} %)')
+                percentage = round(time / total_time, 3)
+                print(f'{process:40} {time:8.3f} ({percentage:5.2%})')
 
     except FileNotFoundError as e:
         parser.error(str(e))
